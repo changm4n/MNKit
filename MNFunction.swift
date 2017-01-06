@@ -1,9 +1,9 @@
 //
 //  MNFunction.swift
-//  LEETJunDamVi
+//  MNKit
 //
 //  Created by 이창민 on 2016. 3. 27..
-//  Copyright © 2016년 LEETJunDamVi. All rights reserved.
+//  Copyright © 2016년 MNKit All rights reserved.
 //
 
 import Foundation

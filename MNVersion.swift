@@ -1,9 +1,9 @@
 //
 //  MNVersion.swift
-//  Donggam
+//  MNKit
 //
 //  Created by 이창민 on 2017. 1. 5..
-//  Copyright © 2017년 UCAN. All rights reserved.
+//  Copyright © 2017년 MNKit All rights reserved.
 //
 
 import UIKit
