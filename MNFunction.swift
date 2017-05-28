@@ -16,68 +16,91 @@ let NaviBar_Height = 44
 let StatusBar_Height = 20
 
 func networkActivityOn(){
-  UIApplication.shared.isNetworkActivityIndicatorVisible = true
+    UIApplication.shared.isNetworkActivityIndicatorVisible = true
 }
 func networkActivityOff(){
-  UIApplication.shared.isNetworkActivityIndicatorVisible = false
+    UIApplication.shared.isNetworkActivityIndicatorVisible = false
 }
 
 
 
 func getHeightOfStatusNNaviBar(_ vc:UIViewController)->CGFloat{
-  
-  let height = vc.navigationController?.navigationBar.frame.size.height ?? 0
-  return height + 20
-  
+    
+    let height = vc.navigationController?.navigationBar.frame.size.height ?? 0
+    return height + 20
+    
 }
 
 
 func stringToAttrStringInHTML(_ str:String) -> (NSMutableAttributedString){
-  var attrString:NSMutableAttributedString!
-  
-  do{
-    attrString = try NSMutableAttributedString(data: str.data(using: String.Encoding.unicode)!, options: [NSDocumentTypeDocumentAttribute:NSHTMLTextDocumentType], documentAttributes: nil)
-  }catch{}
-  
-  return attrString
+    var attrString:NSMutableAttributedString!
+    
+    do{
+        attrString = try NSMutableAttributedString(data: str.data(using: String.Encoding.unicode)!, options: [NSDocumentTypeDocumentAttribute:NSHTMLTextDocumentType], documentAttributes: nil)
+    }catch{}
+    
+    return attrString
 }
 
 
 func setUserDefault(_ value:AnyObject, forKey key:String){
-  UserDefaults.standard.setValue(value, forKey: key)
+    UserDefaults.standard.setValue(value, forKey: key)
 }
 func setUserDefaultWithInt(_ value:Int, forKey key:String){
-  UserDefaults.standard.set(value, forKey: key)
- 
-  
+    UserDefaults.standard.set(value, forKey: key)
+    
+    
 }
 
 
 func setUserDefaultWithBool(_ value:Bool, forKey key:String){
-   UserDefaults.standard.set(value, forKey: key)
+    UserDefaults.standard.set(value, forKey: key)
 }
 
 func getUserDefaultBoolValue(_ key:String) -> Bool{
-  let value = UserDefaults.standard.bool(forKey: key)
-  return value
+    let value = UserDefaults.standard.bool(forKey: key)
+    return value
 }
 
 
 
 func getUserDefault(_ key:String) -> AnyObject{
-  if let value = UserDefaults.standard.object(forKey: key){
-    return value as AnyObject
-  }else{
-    return NSNull()
-  }
+    if let value = UserDefaults.standard.object(forKey: key){
+        return value as AnyObject
+    }else{
+        return NSNull()
+    }
 }
 func getUserDefaultIntValue(_ key:String) -> Int{
-  let value = UserDefaults.standard.integer(forKey: key)
-  return value
+    let value = UserDefaults.standard.integer(forKey: key)
+    return value
 }
 
-func showAlertWithString(_ title:String , message:String, sender:UIViewController){
-  let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
-  alert.addAction(UIAlertAction(title: "닫기", style: UIAlertActionStyle.cancel, handler: nil))
-  sender.present(alert, animated: true, completion: nil)
+func showAlertWithString(_ title:String , message:String, sender:UIViewController, completionHandler:(@escaping ()->Void)){
+    let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
+    alert.addAction(UIAlertAction(title: "닫기", style: UIAlertActionStyle.cancel, handler: nil))
+    sender.present(alert, animated: true, completion: completionHandler)
+    
 }
+
+func showConfirmWithString(_ title:String , message:String, sender:UIViewController, completionHandler:(@escaping (Bool)->Void)){
+    
+    let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
+    alert.addAction(UIAlertAction(title: "닫기", style: .cancel, handler: { (action) in
+        completionHandler(false)
+    }))
+    alert.addAction(UIAlertAction(title: "확인", style: .default, handler: { (action) in
+        completionHandler(true)
+    }))
+    sender.present(alert, animated: true, completion:nil)
+    
+    
+}
+
+
+extension UIStoryboard {
+    class func viewController(identifier: String) -> UIViewController {
+        return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: identifier)
+    }
+}
+
